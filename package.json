@@ -1,7 +1,7 @@
 {
-  "name": "node-typescript-boilerplate",
+  "name": "skillcheck-v2",
   "version": "0.0.0",
-  "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
+  "description": "Search for job skill salaries - v2 with automated pipelines, testing, and deployment",
   "type": "module",
   "engines": {
     "node": ">= 18.12 <19"
@@ -33,10 +33,15 @@
     "prettier": "prettier --config .prettierrc --write .",
     "test:watch": "jest --watch"
   },
-  "author": "Jakub Synowiec <jsynowiec@users.noreply.github.com>",
+  "author": "Rory McDonald (rorymcd98@gmail.com)",
   "license": "Apache-2.0",
   "dependencies": {
-    "tslib": "~2.5"
+    "apify": "^3.1.8",
+    "crawlee": "^3.4.2",
+    "dotenv": "^16.3.1",
+    "playwright": "^1.36.2",
+    "tslib": "~2.5",
+    "zod": "^3.21.4"
   },
   "volta": {
     "node": "18.12.1"
