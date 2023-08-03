@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import Client from 'pg';
-enum JobBoard {
+
+export enum JobBoard {
   REED = 'reed',
 }
 
-interface JobListing {
+export interface JobListing {
   url: string;
   jobBoard: JobBoard;
   title: string | null;
@@ -21,5 +21,3 @@ interface JobListing {
   fullJobDescription: string | null;
   applications: number | null;
 }
-
-export async function importDataToPostgres(jobListings: JobListing[]) {}

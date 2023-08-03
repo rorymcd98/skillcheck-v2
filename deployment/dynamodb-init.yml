@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dynamodb-init
+spec:
+  template:
+    spec:
+      containers:
+        - name: dynamodb-init
+          image: aws/aws-cli
+          command:
+            - 'sh'
+            - '-c'
+            - |
+              aws dynamodb create-table \
+                --table-name users \
+                --attribute-definitions \
+                  AttributeName=id,AttributeType=S \
+                --key-schema \
+                  AttributeName=id,KeyType=HASH \
+                --provisioned-throughput \
+                  ReadCapacityUnits=5,WriteCapacityUnits=5
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: 'us-west-2'
+      restartPolicy: Never

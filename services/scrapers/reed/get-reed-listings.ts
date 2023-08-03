@@ -4,29 +4,30 @@ import axios from 'axios';
 import pLimit from 'p-limit';
 import * as z from 'zod';
 
-const JobListingSchema = z.object({
-  jobId: z.string(),
-  employerId: z.string().nullable(),
+const ReedJobListingSchema = z.object({
+  jobId: z.number(),
+  employerId: z.number(),
   employerName: z.string().nullable(),
-  employerProfileId: z.string(),
-  employerProfileName: z.string(),
+  employerProfileId: z.string().nullable(),
+  employerProfileName: z.string().nullable(),
   jobTitle: z.string(),
-  locationName: z.string(),
+  locationName: z.string().nullable(),
   minimumSalary: z.number().nullable(),
   maximumSalary: z.number().nullable(),
   currency: z.string().nullable(),
-  expirationDate: z.string(),
-  date: z.string(),
+  expirationDate: z.string().nullable(),
+  date: z.string().nullable(),
   jobDescription: z.string(),
-  applications: z.number(),
+  applications: z.number().nullable(),
   jobUrl: z.string(),
 });
 
 const ReedApiDataSchema = z.object({
   totalResults: z.number().optional(),
-  results: z.array(JobListingSchema),
+  results: z.array(ReedJobListingSchema),
 });
-type ReedApiData = z.infer<typeof ReedApiDataSchema>;
+export type ReedJobListing = z.infer<typeof ReedJobListingSchema>;
+export type ReedApiData = z.infer<typeof ReedApiDataSchema>;
 
 async function fetchReedApiResults(searchTerm: string, pageNum: number) {
   const versionNum = '1.0';
@@ -54,22 +55,32 @@ async function fetchReedApiResults(searchTerm: string, pageNum: number) {
     return validatedData;
   } catch (error) {
     console.error('Error loading API', error);
+    throw error;
   }
 }
 
 async function getNumberOfPages(searchTerm: string) {
-  let searchLength: number;
   try {
     const apiResponse = await fetchReedApiResults(searchTerm, 0);
-    searchLength = apiResponse.totalResults;
+    return apiResponse.totalResults;
   } catch (error) {
-    console.error('Error loading API', error);
+    throw error;
   }
-  return searchLength;
 }
 
-export default async function getAllReedListings(searchTerm: string) {
-  const numberOfPages = await getNumberOfPages('software');
+console.log(await getNumberOfPages('software engineer'));
+
+export default async function getAllReedListings(
+  searchTerm: string,
+): Promise<ReedApiData[]> {
+  let numberOfPages: number | undefined;
+
+  numberOfPages = await getNumberOfPages(searchTerm);
+  if (!numberOfPages) {
+    throw new Error('No results found');
+  }
+
+  // pLimit will batch promises to avoid overloading the API
   const listingPromises: Promise<ReedApiData>[] = [];
   const limit = pLimit(5);
   for (let pageNum = 0; pageNum < numberOfPages; pageNum++) {
