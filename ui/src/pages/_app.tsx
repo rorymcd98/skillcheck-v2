@@ -8,6 +8,7 @@ import { Global } from '@emotion/react';
 import Chrome from '../components/chrome';
 import { Theme } from '../components/theme';
 import { globalStyes } from '../styles/global.styles';
+import HydrateZustand from '../lib/HydrateZustand';
 
 /**
  * Next.js uses the App component to initialize pages. You can override it
@@ -23,6 +24,7 @@ const EuiApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     </Head>
     <Global styles={globalStyes} />
     <Theme>
+      <HydrateZustand />
       <Chrome>
         <EuiErrorBoundary>
           <Component {...pageProps} />

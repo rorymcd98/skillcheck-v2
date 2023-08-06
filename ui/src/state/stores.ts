@@ -37,6 +37,7 @@ export const useFiltersStore = create<FiltersStore>()(
     }),
     {
       name: 'filters-store',
+      skipHydration: true,
     }
   )
 );
