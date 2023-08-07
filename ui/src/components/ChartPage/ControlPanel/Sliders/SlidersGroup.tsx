@@ -1,4 +1,3 @@
-'use client';
 import { EuiDualRange, EuiFlexGroup, EuiFlexItem } from '@elastic/eui';
 import { FC } from 'react';
 

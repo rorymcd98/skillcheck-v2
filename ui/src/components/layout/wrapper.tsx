@@ -12,7 +12,7 @@ const Wrapper: FunctionComponent = ({ children }) => {
     <>
       <Header />
 
-      <GradientBg style={{ height: '100%' }}>
+      <GradientBg>
         <div css={styles.content}>{children}</div>
       </GradientBg>
     </>

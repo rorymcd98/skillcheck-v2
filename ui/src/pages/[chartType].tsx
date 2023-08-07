@@ -48,7 +48,7 @@ interface ChartPageProps extends StaticChartData {
 }
 
 //Todo use defaultChartType
-const chartPage: FC<ChartPageProps> = ({ defaultChartType, chartType }) => {
+const chartPage: FC<ChartPageProps> = ({ chartType }) => {
   return (
     <ChartDataProvider.Provider value={{ chartType }}>
       <ChartPageLayout chartType={chartType} />

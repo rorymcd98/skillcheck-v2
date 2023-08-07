@@ -25,19 +25,17 @@ const Header = () => {
       sections={[
         {
           items: [
-            <Link key="logo-eui" href="/" passHref>
-              <a css={styles.logo}>
-                <Image
-                  width={24}
-                  height={24}
-                  src={Logo}
-                  alt=""
-                  loader={imageLoader}
-                />
-                <EuiTitle size="xxs" css={styles.title}>
-                  <span>Skillcheck v2.</span>
-                </EuiTitle>
-              </a>
+            <Link key="logo-eui" href="/" passHref css={styles.logo}>
+              <Image
+                width={24}
+                height={24}
+                src={Logo}
+                alt=""
+                loader={imageLoader}
+              />
+              <EuiTitle size="xxs" css={styles.title}>
+                <span>Skillcheck v2.</span>
+              </EuiTitle>
             </Link>,
           ],
           borders: 'none',

@@ -1,9 +1,6 @@
 import { FunctionComponent } from 'react';
-
 import { EuiProvider, EuiThemeColorMode } from '@elastic/eui';
-
 import { useTheme } from '../theme';
-
 import createCache from '@emotion/cache';
 
 /**

@@ -7,7 +7,6 @@ import {
 } from '@elastic/eui';
 import { FC } from 'react';
 import { SkillType, useFiltersStore } from '../../../../state/stores';
-import { useStore } from 'zustand';
 
 interface SkillFilterButtonProps extends EuiFlexItemProps {
   jobSkill: SkillType;
@@ -17,16 +16,8 @@ const SkillFilterButton: FC<SkillFilterButtonProps> = ({
   jobSkill,
   ...props
 }) => {
-  // const selectedFilters = useFiltersStore(state => state.selectedSkillFilers);
-  // const toggleFilter = useFiltersStore(
-  //   state => state.toggleSelectedSkillFilter
-  // );
-  const selectedFilters = useStore(
-    useFiltersStore,
-    state => state.selectedSkillFilers
-  );
-  const toggleFilter = useStore(
-    useFiltersStore,
+  const selectedFilters = useFiltersStore(state => state.selectedSkillFilers);
+  const toggleFilter = useFiltersStore(
     state => state.toggleSelectedSkillFilter
   );
 
@@ -36,9 +27,6 @@ const SkillFilterButton: FC<SkillFilterButtonProps> = ({
   const deselectedColor = euiTheme.colors.primary;
   const selectedColor = euiTheme.colors.success;
   const isDisabled = !(jobSkill === SkillType.ALL) && isAllSelected;
-
-  console.log(selectedFilters);
-  console.log(jobSkill, isAllSelected, isFiltered, isDisabled);
 
   return (
     <EuiFlexItem
